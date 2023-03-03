@@ -1,0 +1,38 @@
+
+{{>main/header}}
+<div class="ui container" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <h2 class="ui blue header">
+        Propriétaire
+        <div class="ui blue pointing label">{{masters.size}}</div>
+    </h2>
+
+    <div class="info icon">
+        <i class="user icon"></i>
+        <div class="ui inline form">
+            <div class="fields">
+                <div class="eight wide field">
+                    <input type="text" placeholder="Nom" name="name">
+                </div>
+                <div class="eight wide field">
+                    <input type="text" placeholder="Prénom" name="lastName">
+                </div>
+                <div class="field">
+                    <button class="ui icon button" type="submit" formaction="/master/add">
+                        <i class="plus icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <p>Voici quelques informations utiles :</p>
+    <ul class="ui list">
+        <li>Il n'y a pas de maître dans la base de données.</li>
+        <li>Il n'y a pas de chien à l'adoption dans la base de données.</li>
+    </ul>
+    <a class="ui button" href="#">Ajout rapide de propriétaire</a>
+</div>
+{{>main/footer}}
