@@ -3,7 +3,7 @@ package edu.spring.btp.entities
 import jakarta.persistence.*
 
 @Entity
-class Domain() {
+open class Domain() {
     constructor(name: String, parent: Domain?) : this() {
         this.name = name
         this.parent = parent

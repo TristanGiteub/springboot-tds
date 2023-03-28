@@ -7,6 +7,7 @@ import edu.spring.btp.repositories.DomainRepository
 import edu.spring.btp.repositories.UserRepository
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
 import java.security.Principal
 
@@ -17,33 +18,42 @@ class IndexController(
         private val userRepository: UserRepository
 ) {
 
-    @RequestMapping(value = ["/", "", "/index"], method = [RequestMethod.GET, RequestMethod.POST])
-    fun index(model: Model): String {
-        val domains = domainRepository.findByParentIsNull()
-        model.addAttribute("domains", domains)
+    @GetMapping(value = ["/", "", "/index"])
+    fun index(model: ModelMap): String {
+        //val domain = domainRepository.findByParentIsNull()
+        val domain = domainRepository.findByName("Root")
+        val domains = domainRepository.findByParentName("Root")
+        model["domain"] = domain
+        model["domains"] = domains
         return "index"
     }
 
     @GetMapping("/domain/{name}")
     fun listDomains(@PathVariable name: String, model: Model): String {
+        val domain = domainRepository.findByName(name)
         val domains = domainRepository.findByParentName(name)
         model.addAttribute("domains", domains)
+        model.addAttribute("domain", domain)
         return "index"
     }
 
-    /*@GetMapping("/complaints/{domain}")
+    @GetMapping("/complaints/{domain}")
     fun listComplaints(@PathVariable domain: String, model: Model): String {
-        val complaints = complaintRepository.findByDomainName(domain)
+        val domain = domainRepository.findByName(domain)
+        val complaints = domain?.complaints
         model.addAttribute("complaints", complaints)
+        model.addAttribute("domain", domain)
         return "complaints"
     }
 
     @GetMapping("/complaints/{domain}/sub")
     fun listSubComplaints(@PathVariable domain: String, model: Model): String {
-        val complaints = complaintRepository.findByDomainNameStartingWith(domain)
+        val domain = domainRepository.findByName(domain)
+        val complaints = domain?.complaints
         model.addAttribute("complaints", complaints)
+        model.addAttribute("domain", domain)
         return "complaints"
-    }*/
+    }
 
     @GetMapping("/complaints/{domain}/new")
     fun newComplaintForm(@PathVariable domain: String, model: Model, principal: Principal?): String {
