@@ -1,0 +1,23 @@
+{{> main/header }}
+
+<main class="ui container">
+    <h1 class="ui blue header">{{domain.name}}</h1>
+     <div class="ui relaxed divided list">
+         <h2 class="ui header">Domaine(s)</h2>
+         {{#domains}}
+         <div class="item">
+             <div class="content">
+                 <a class="header" href="/domain/{{name}}">{{name}}</a>
+                 <div class="description">
+                     {{providers.size}} providers, {{getComplaintsCount}} complaints cumulés sur les enfants, {{complaints.size}} complaints
+                 </div>
+             </div>
+         </div>
+         {{/domains}}
+     </div>
+ </main>
+
+
+
+
+ {{> main/footer }}
